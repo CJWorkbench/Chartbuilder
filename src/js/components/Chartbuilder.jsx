@@ -261,7 +261,8 @@ var Chartbuilder = React.createClass({
 		if(this.props.onStateChange) {
 			this.props.onStateChange({
 				chartProps: state.chartProps,
-				metadata: state.metadata
+				metadata: state.metadata,
+				errors: this.state.errors,
 			});
 		}
 	}
