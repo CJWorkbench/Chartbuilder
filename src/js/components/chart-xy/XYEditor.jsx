@@ -156,7 +156,7 @@ var XYEditor = React.createClass({
 				onReset={this._handlePropAndReparse.bind(null, "scale")}
 				id="primaryScale"
 				name="Primary"
-				stepNumber={nextStep}
+				stepNumber={String(nextStep)}
 				key="primaryScale"
 			/>
 		);
@@ -187,7 +187,7 @@ var XYEditor = React.createClass({
 					nowOffset={this.props.session.nowOffset}
 					now={this.props.session.now}
 					scale={chartProps.scale}
-					stepNumber={nextStep}
+					stepNumber={String(nextStep)}
 					onUpdate={this._handlePropAndReparse.bind(null, "scale")}
 				/>
 			);
