@@ -203,8 +203,7 @@ var Chartbuilder = React.createClass({
 						<RendererWrapper
 							editable={true} /* will component be editable or only rendered */
 							model={this.state}
-							enableResponsive={false}
-							width={640}
+							enableResponsive={true}
 							showMetadata={true}
 							className={svgWrapperClassName.desktop}
 							svgClassName={this.props.renderedSVGClassName}

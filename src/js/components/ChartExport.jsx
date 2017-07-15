@@ -42,20 +42,23 @@ var ChartExport = React.createClass({
 	},
 
 	componentDidMount: function() {
-		var enableSvgExport;
 		var chartNode = null;
 
 		// SVG output won't work on most non-Chrome browsers, so we try it first. If
 		// `createSVGFile()` doesnt work we will disable svg download but still allow png.
 		// TODO: figure out what exactly is breaking FF
-		var chart = document
-			.getElementsByClassName(this.props.svgWrapperClassName)[0]
-			.getElementsByClassName("chartbuilder-svg")[0];
 
-		this.setState({
-			chartNode: chart,
-			enableSvgExport: true
-		});
+		var chartOuterNode = document.getElementsByClassName(this.props.svgWrapperClassName)[0];
+
+		// If width is not specified to RendererWrapper props, chart fits its parent DOM element
+		// But this only happens after RendererWrapper componentDidMount... so the chart div may not exist here
+		if (chartOuterNode) {
+			var chart = chartOuterNode.getElementsByClassName("chartbuilder-svg")[0];
+			this.setState({
+				chartNode: chart,
+				enableSvgExport: true
+			});
+		}
 	},
 
 	componentWillReceiveProps: function(nextProps) {
