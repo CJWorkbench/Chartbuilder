@@ -86,6 +86,7 @@ var Chartbuilder = React.createClass({
 		showLoadPrevious: PropTypes.bool,
 		onSave: PropTypes.func,
 		onStateChange: PropTypes.func,
+		postRender: PropTypes.func,
 		additionalComponents: PropTypes.shape({
 			metadata: PropTypes.array,
 			misc: PropTypes.object
@@ -115,6 +116,16 @@ var Chartbuilder = React.createClass({
 		ChartMetadataStore.addChangeListener(this._onChange);
 		ErrorStore.addChangeListener(this._onChange);
 		SessionStore.addChangeListener(this._onChange);
+
+		if (this.props.postRender) {
+			this.props.postRender();
+		}
+	},
+
+	componentDidUpdate: function() {
+		if (this.props.postRender) {
+			this.props.postRender();
+		}
 	},
 
 	/* Remove listeners on component unmount */
