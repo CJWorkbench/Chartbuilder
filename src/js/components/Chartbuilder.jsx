@@ -62,7 +62,10 @@ function getStateFromStores() {
  * @class
  * @property {boolean} autosave - Save to localStorage after every change
  * @property {boolean} showMobilePreview - Show mobile preview underneath default chart
+ * @property {boolean} showDataInput - if false, must provide via with ChartServerActions.receiveModel()
+ * @property {boolean} showExport - Show mobile preview underneath default chart
  * @property {function} onStateChange - Callback when state is changed
+ * @property {function} postRender - Callback when chart SVG is rendered
  * @property {Object} additionalComponents - Optional additional React components
  * @property {string} renderedSVGClassName - Optional class name for chart SVG class
  * @example
@@ -83,6 +86,7 @@ var Chartbuilder = React.createClass({
 		autosave: PropTypes.bool,
 		showMobilePreview: PropTypes.bool,
 		showDataInput: PropTypes.bool,
+		showExport: PropTypes.bool,
 		showLoadPrevious: PropTypes.bool,
 		onSave: PropTypes.func,
 		onStateChange: PropTypes.func,
@@ -102,6 +106,7 @@ var Chartbuilder = React.createClass({
 		return {
 			autosave: true,
 			showDataInput: true,
+			showExport: true,
 			showLoadPrevious: true,
 			additionalComponents: {
 				metadata: [],
@@ -202,6 +207,23 @@ var Chartbuilder = React.createClass({
 			);
 		}
 
+		// Data export buttons, if enabled
+		var chartExport;
+		if (this.props.showExport) {
+			chartExport = (
+				<ChartExport
+						data={this.state.chartProps.data}
+						enableJSONExport={this.props.enableJSONExport}
+						svgWrapperClassName={svgWrapperClassName.desktop}
+						metadata={this.state.metadata}
+						stepNumber={String(editorSteps + 3)}
+						additionalComponents={this.props.additionalComponents.misc}
+						model={this.state}
+					/>
+			);
+		}
+
+
 		var loadPrevious = null;
 		if (this.props.showLoadPrevious)	{
 			loadPrevious = <LocalStorageTimer timerOn={this.state.session.timerOn} />
@@ -240,18 +262,11 @@ var Chartbuilder = React.createClass({
 						data={this.state.chartProps.data}
 						stepNumber={String(editorSteps + 2)}
 						additionalComponents={this.props.additionalComponents.metadata}
+						hideSizeButtons={!this.props.showExport}
 					/>
 					{mobileOverrides}
 					{this._renderErrors()}
-					<ChartExport
-						data={this.state.chartProps.data}
-						enableJSONExport={this.props.enableJSONExport}
-						svgWrapperClassName={svgWrapperClassName.desktop}
-						metadata={this.state.metadata}
-						stepNumber={String(editorSteps + 3)}
-						additionalComponents={this.props.additionalComponents.misc}
-						model={this.state}
-					/>
+					{chartExport}
 				</div>
 				<div className="chartbuilder-canvas">
 					<Canvas />

@@ -66,6 +66,7 @@ var ChartMetadata = React.createClass({
 			title: PropTypes.string
 		}),
 		stepNumber: PropTypes.string,
+		hideSizeButtons: PropTypes.bool,
 		additionalComponents: PropTypes.array
 	},
 
@@ -100,6 +101,18 @@ var ChartMetadata = React.createClass({
 			/>
 		}, this);
 
+		// Size buttons, if required
+		var sizeButtons;
+		if (!this.props.hideSizeButtons) {
+			sizeButtons = (
+				<ButtonGroup
+					buttons={chart_sizes}
+					onClick={this._handleMetadataUpdate.bind(null, "size")}
+					value={metadata.size}
+				/>
+			);
+		}
+
 		return (
 			<div className="editor-options">
 				<h2>
@@ -108,11 +121,7 @@ var ChartMetadata = React.createClass({
 				</h2>
 				{textInputs}
 				{this.props.additionalComponents}
-				<ButtonGroup
-					buttons={chart_sizes}
-					onClick={this._handleMetadataUpdate.bind(null, "size")}
-					value={metadata.size}
-				/>
+				{sizeButtons}
 			</div>
 		);
 	}
