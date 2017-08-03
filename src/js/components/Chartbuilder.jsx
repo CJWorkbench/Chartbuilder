@@ -95,7 +95,8 @@ var Chartbuilder = React.createClass({
 			metadata: PropTypes.array,
 			misc: PropTypes.object
 		}),
-		renderedSVGClassName: React.PropTypes.string
+		renderedSVGClassName: React.PropTypes.string,
+		editable: React.PropTypes.bool
 	},
 
 	getInitialState: function() {
@@ -111,7 +112,8 @@ var Chartbuilder = React.createClass({
 			additionalComponents: {
 				metadata: [],
 				misc: {}
-			}
+			},
+			editable: true
 		};
 	},
 
@@ -192,7 +194,7 @@ var Chartbuilder = React.createClass({
 					<div className="phone-wrap">
 						<div className="phone-frame">
 							<RendererWrapper
-								editable={true} /* will component be editable or only rendered */
+								editable={this.props.editable} /* will component be editable or only rendered */
 								showMetadata={true}
 								model={this.state}
 								enableResponsive={true}
@@ -229,21 +231,9 @@ var Chartbuilder = React.createClass({
 			loadPrevious = <LocalStorageTimer timerOn={this.state.session.timerOn} />
 		}
 
-		return (
-			<div className="chartbuilder-main">
-				<div className="chartbuilder-renderer">
-					<div className="desktop">
-						<RendererWrapper
-							editable={true} /* will component be editable or only rendered */
-							model={this.state}
-							enableResponsive={true}
-							showMetadata={true}
-							className={svgWrapperClassName.desktop}
-							svgClassName={this.props.renderedSVGClassName}
-						/>
-					</div>
-					{mobilePreview}
-				</div>
+		var chartEditor;
+		if (this.props.editable) {
+			chartEditor = (
 				<div className="chartbuilder-editor">
 					<ChartTypeSelector
 						metadata={this.state.metadata}
@@ -267,7 +257,25 @@ var Chartbuilder = React.createClass({
 					{mobileOverrides}
 					{this._renderErrors()}
 					{chartExport}
+				</div>)
+		}
+
+		return (
+			<div className="chartbuilder-main">
+				<div className="chartbuilder-renderer">
+					<div className="desktop">
+						<RendererWrapper
+							editable={this.props.editable} /* will component be editable or only rendered */
+							model={this.state}
+							enableResponsive={true}
+							showMetadata={true}
+							className={svgWrapperClassName.desktop}
+							svgClassName={this.props.renderedSVGClassName}
+						/>
+					</div>
+					{mobilePreview}
 				</div>
+				{chartEditor}
 				<div className="chartbuilder-canvas">
 					<Canvas />
 				</div>
