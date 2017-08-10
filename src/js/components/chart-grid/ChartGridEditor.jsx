@@ -49,14 +49,16 @@ var ChartGridEditor = React.createClass({
 			}).isRequired,
 			_grid: PropTypes.object.isRequired
 		}),
-		numSteps: PropTypes.number
+		numSteps: PropTypes.number,
+		showDataInput: PropTypes.bool
 	},
 
 	mixins: [ ChartEditorMixin ],
 
 	getDefaultProps: function() {
 		return {
-			numSteps: 3
+			numSteps: 4,
+			showDataInput: true
 		};
 	},
 
@@ -95,6 +97,50 @@ var ChartGridEditor = React.createClass({
 			return e.location === "axis";
 		});
 
+		// Step 1 is chart type, not in this component
+		var nextStep = 2;
+
+		// Optional data input field
+		var dataInput = null;
+		if (this.props.showDataInput) {
+			dataInput =
+				<div className="editor-options">
+					<h2>
+						<span className="step-number">{String(nextStep)}</span>
+						<span>Input your data</span>
+					</h2>
+					<DataInput
+						errors={inputErrors}
+						chartProps={chartProps}
+						className="data-input"
+					/>
+				</div>
+			nextStep += 1;
+		}
+
+		var seriesOptions =
+			<div className="editor-options">
+				<h2>
+					<span className="step-number">{String(nextStep)}</span>
+					<span>Set series options</span>
+				</h2>
+				<ChartGrid_universalToggle
+					text="Single color"
+					chartSettings={chartProps.chartSettings}
+					universalSettings={this.state.universalSettings}
+					onUpdate={this._handlePropUpdate.bind(null, "chartSettings")}
+					onClick={this._handleStateUpdate}
+				/>
+				{chartSettings}
+				<ChartGrid_gridSettings
+					grid={chartProps._grid}
+					onUpdate={this._handlePropAndReparse.bind(null, "_grid")}
+					numSeries={chartProps.data.length}
+				/>
+			</div>
+		nextStep += 1;
+
+
 		/*
 		 * Settings to control the numerical scale. It will be different for bar
 		 * than for XY
@@ -108,7 +154,7 @@ var ChartGridEditor = React.createClass({
 					onUpdate={this._handlePropAndReparse.bind(null, "scale")}
 					className="scale-options"
 					key="xScale"
-					stepNumber="4"
+					stepNumber={String(nextStep)}
 				/>
 			);
 		} else {
@@ -121,11 +167,12 @@ var ChartGridEditor = React.createClass({
 					onReset={this._handlePropAndReparse.bind(null, "scale")}
 					id="primaryScale"
 					name="Primary"
-					stepNumber="4"
+					stepNumber={String(nextStep)}
 					key="primaryScale"
 				/>
 			);
 		}
+		nextStep += 1;
 
 		/* Add date settings if we are parsing a date */
 		if (chartProps.scale.hasDate) {
@@ -135,10 +182,11 @@ var ChartGridEditor = React.createClass({
 					nowOffset={this.props.session.nowOffset}
 					now={this.props.session.now}
 					scale={chartProps.scale}
-					stepNumber="5"
+					stepNumber={String(nextStep)}
 					onUpdate={this._handlePropAndReparse.bind(null, "scale")}
 				/>
 			)
+			nextStep += 1;
 		} else if (chartProps.scale.isNumeric) {
 			scaleSettings.push(
 				<NumericScaleSettings
@@ -149,43 +197,16 @@ var ChartGridEditor = React.createClass({
 					className="scale-options"
 					id="numericSettings"
 					name="Bottom"
-					stepNumber="5"
+					stepNumber={String(nextStep)}
 				/>
 			)
+			nextStep += 1;
 		}
 
 		return (
 			<div className="chartgrid-editor">
-				<div className="editor-options">
-					<h2>
-						<span className="step-number">2</span>
-						<span>Input your data</span>
-					</h2>
-					<DataInput
-						errors={inputErrors}
-						chartProps={chartProps}
-						className="data-input"
-					/>
-				</div>
-				<div className="editor-options">
-					<h2>
-						<span className="step-number">3</span>
-						<span>Set series options</span>
-					</h2>
-					<ChartGrid_universalToggle
-						text="Single color"
-						chartSettings={chartProps.chartSettings}
-						universalSettings={this.state.universalSettings}
-						onUpdate={this._handlePropUpdate.bind(null, "chartSettings")}
-						onClick={this._handleStateUpdate}
-					/>
-					{chartSettings}
-					<ChartGrid_gridSettings
-						grid={chartProps._grid}
-						onUpdate={this._handlePropAndReparse.bind(null, "_grid")}
-						numSeries={chartProps.data.length}
-					/>
-				</div>
+				{dataInput}
+				{seriesOptions}
 				<div className="editor-options">
 					{scaleSettings}
 				</div>

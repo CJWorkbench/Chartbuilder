@@ -62,7 +62,7 @@ function getStateFromStores() {
  * @class
  * @property {boolean} autosave - Save to localStorage after every change
  * @property {boolean} showMobilePreview - Show mobile preview underneath default chart
- * @property {boolean} showDataInput - if false, must provide via with ChartServerActions.receiveModel()
+ * @property {boolean} showDataInput - if false, must provide data via ChartServerActions.receiveModel()
  * @property {boolean} showExport - Show mobile preview underneath default chart
  * @property {function} onStateChange - Callback when state is changed
  * @property {function} postRender - Callback when chart SVG is rendered
