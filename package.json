@@ -33,7 +33,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "chartbuilder-ui": "git://github.com/Quartz/chartbuilder-ui.git#react-155",
+    "chartbuilder-ui": "git://github.com/CJWorkbench/chartbuilder-ui.git#workbench-integration", 
     "classnames": "^2.2.1",
     "d3": "^3.5.5",
     "d3-scale": "^1.0.4",
