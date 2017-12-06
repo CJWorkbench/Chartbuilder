@@ -58,6 +58,7 @@ function parseXY(config, _chartProps, callback, parseOpts) {
 		} else {
 			settings.label = settings.label || dataSeries.name;
 		}
+		settings.colName = dataSeries.name;
 
 		var values = map(dataSeries.values, function(d) {
 			return +d.value;
