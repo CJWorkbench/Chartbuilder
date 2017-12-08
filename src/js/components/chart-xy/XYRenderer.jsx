@@ -131,7 +131,7 @@ var XYRenderer = React.createClass({
 		var hasUndraggedLabel = some(labels.values, function(value) {
 			return !value.dragged;
 		}, true);
-		return (hasUndraggedLabel && data.length > 1);
+		return (hasUndraggedLabel && data.length > 0);
 	},
 
 	// create flat array of series components based on data and scales
@@ -238,7 +238,7 @@ var XYRenderer = React.createClass({
 		};
 
 		// account for legend label offset
-		if (needsLabelOffset && props.chartProps.data.length > 1) {
+		if (needsLabelOffset && props.chartProps.data.length > 0) {
 			chartAreaTranslateY += displayConfig.afterLegend;
 			chartAreaDimensions.height -= displayConfig.afterLegend;
 		}
@@ -515,7 +515,7 @@ var XYLabels = React.createClass({
 			rectSize: displayConfig.labelRectSize
 		};
 
-		if (this.props.chartProps.data.length > 1) {
+		if (this.props.chartProps.data.length > 0) {
 			labelComponents = map(this.props.chartProps.data, bind(function(d, i) {
 				var prevNode = null;
 				var labelSettings = {};
