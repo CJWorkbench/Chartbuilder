@@ -96,11 +96,28 @@ var HorizontalAxis = React.createClass({
 
 	_generateTicks: function(props) {
 		var lastTickWidth = this.state.lastTickWidth;
+		var rotate = function(r) {return r};
+		if (props.rotate) {
+			if (props.rotate === "auto") {
+				for (var i = 0; i < props.tickValues.length; i++) {
 
+					if (props.xScale.bandwidth()
+						< help.computeTextWidth(props.tickFormat(props.tickValues[i]), props.tickFont)) {
+						rotate = function (xVal) { return "rotate(" + 35 + " " + xVal + ", -5)" };
+						break;
+					}
+				}
+			} else {
+				rotate = function (xVal) { return "rotate(" + props.rotate + " " + xVal + ", -5)" };
+			}
+		}
 		return map(props.tickValues, function(tickValue, i) {
 			var text;
-			var formatted = props.tickFormat(tickValue)
+			var formatted = props.tickFormat(tickValue);
 			var xVal = ordinalAdjust(props.xScale, tickValue);
+			if (props.rotate) {
+				xVal = xVal - 5;
+			}
 
 			// offset a tick label that is over the edge
 			if (xVal + lastTickWidth > props.dimensions.width) {
@@ -121,6 +138,7 @@ var HorizontalAxis = React.createClass({
 					x={xVal}
 					y={0}
 					dy={DY}
+					transform={rotate(xVal)}
 				>
 					{text}
 				</text>

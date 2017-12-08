@@ -101,7 +101,7 @@ var XYRenderer = React.createClass({
 		} else if (scale.isNumeric) {
 			return scaleUtils.generateScale("linear", scale.numericSettings, null, range)
 		} else {
-			return scaleUtils.generateScale("ordinal", scale, data, range)
+			return scaleUtils.generateScale("ordinal", scale.typeSettings, data, range)
 		}
 	},
 
@@ -336,6 +336,7 @@ var XYRenderer = React.createClass({
 				<HorizontalAxis
 					prefix={(scale.numericSettings) ? scale.numericSettings.prefix : ""}
 					suffix={(scale.numericSettings) ? scale.numericSettings.suffix : ""}
+					rotate={(scale.typeSettings ? scale.typeSettings.rotate : false)}
 					tickFormat={xAxis.tickFormat}
 					tickValues={xAxis.tickValues}
 					textAnchor={this._xAxisTextAnchor(_chartProps, scale.hasDate, hasColumn)}

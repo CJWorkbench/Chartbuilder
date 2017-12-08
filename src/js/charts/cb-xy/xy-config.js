@@ -109,6 +109,11 @@ var defaultProps = {
 				precision: 0,
 				prefix: "",
 				suffix: ""
+			},
+			typeSettings: {
+				rotate: "auto",
+				maxLength: false,
+				overflow: "..."
 			}
 		},
 		data: [],

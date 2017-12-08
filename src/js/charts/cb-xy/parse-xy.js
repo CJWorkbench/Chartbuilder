@@ -236,9 +236,9 @@ function parseXY(config, _chartProps, callback, parseOpts) {
 		} else {
 			chartProps.mobile = {};
 		}
-
-
 	}
+
+	scale.typeSettings = chartProps.scale.typeSettings || clone(config.defaultProps.chartProps.scale.typeSettings);
 
 	var newChartProps = assign(chartProps, {
 		chartSettings: chartSettings,
