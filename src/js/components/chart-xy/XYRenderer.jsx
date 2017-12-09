@@ -288,6 +288,7 @@ var XYRenderer = React.createClass({
 				/>
 			)
 		});
+		var rotate = ((!scale.hasDate && !scale.isNumeric) && scale.typeSettings) ? scale.typeSettings.rotate : false;
 
 		// mobile overrides TODO: do we actually need this?
 		if (this.props.enableResponsive && _chartProps.hasOwnProperty("mobile") && this.props.svgSizeClass === "small") {
@@ -336,7 +337,7 @@ var XYRenderer = React.createClass({
 				<HorizontalAxis
 					prefix={(scale.numericSettings) ? scale.numericSettings.prefix : ""}
 					suffix={(scale.numericSettings) ? scale.numericSettings.suffix : ""}
-					rotate={(scale.typeSettings ? scale.typeSettings.rotate : false)}
+					rotate={rotate}
 					tickFormat={xAxis.tickFormat}
 					tickValues={xAxis.tickValues}
 					textAnchor={this._xAxisTextAnchor(_chartProps, scale.hasDate, hasColumn)}

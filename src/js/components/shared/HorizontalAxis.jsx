@@ -115,8 +115,11 @@ var HorizontalAxis = React.createClass({
 			var text;
 			var formatted = props.tickFormat(tickValue);
 			var xVal = ordinalAdjust(props.xScale, tickValue);
+			var yVal = 0;
+			var textAnchor = (props.rotate) ? 'start' : props.textAnchor;
 			if (props.rotate) {
 				xVal = xVal - 5;
+				yVal = -5
 			}
 
 			// offset a tick label that is over the edge
@@ -133,10 +136,10 @@ var HorizontalAxis = React.createClass({
 			return (
 				<text
 					key={i}
-					textAnchor={props.textAnchor}
+					textAnchor={textAnchor}
 					className={"tick orient-" + props.orient}
 					x={xVal}
-					y={0}
+					y={yVal}
 					dy={DY}
 					transform={rotate(xVal)}
 				>
