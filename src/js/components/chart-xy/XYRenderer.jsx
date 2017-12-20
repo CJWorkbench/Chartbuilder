@@ -96,13 +96,13 @@ var XYRenderer = React.createClass({
 
 	// get x-axis which can be one of many types
 	_generateXAxis: function(scale, data, range) {
-		if (scale.hasDate) {
+		/*if (scale.hasDate) {
 			return scaleUtils.generateScale("time", scale.dateSettings, data, range)
 		} else if (scale.isNumeric) {
 			return scaleUtils.generateScale("linear", scale.numericSettings, null, range)
-		} else {
+		} else {*/
 			return scaleUtils.generateScale("ordinal", scale.typeSettings, data, range)
-		}
+		//}
 	},
 
 	// conditionally anchor x axis text based on type of axis
@@ -338,6 +338,7 @@ var XYRenderer = React.createClass({
 					prefix={(scale.numericSettings) ? scale.numericSettings.prefix : ""}
 					suffix={(scale.numericSettings) ? scale.numericSettings.suffix : ""}
 					rotate={rotate}
+					typeSettings={scale.typeSettings}
 					tickFormat={xAxis.tickFormat}
 					tickValues={xAxis.tickValues}
 					textAnchor={this._xAxisTextAnchor(_chartProps, scale.hasDate, hasColumn)}

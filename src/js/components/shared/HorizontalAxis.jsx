@@ -96,18 +96,27 @@ var HorizontalAxis = React.createClass({
 
 	_generateTicks: function(props) {
 		var lastTickWidth = this.state.lastTickWidth;
+		var doRotateAndTrim = false;
 		var rotate = function(r) {return r};
+		var maxLength = function (d) {
+			if (props.typeSettings.maxLength && d.length > props.typeSettings.maxLength) {
+				return d.substr(0, props.typeSettings.maxLength) + ((props.typeSettings.overflow) ? props.typeSettings.overflow : "");
+			} else {
+				return d;
+			}
+		};
 		if (props.rotate) {
 			if (props.rotate === "auto") {
 				for (var i = 0; i < props.tickValues.length; i++) {
-
-					if (props.xScale.bandwidth()
-						< help.computeTextWidth(props.tickFormat(props.tickValues[i]), props.tickFont)) {
+					if ( props.xScale.bandwidth()
+						< help.computeTextWidth(props.tickValues[i]) ) {
+						doRotateAndTrim = true;
 						rotate = function (xVal) { return "rotate(" + 35 + " " + xVal + ", -5)" };
 						break;
 					}
 				}
 			} else {
+				doRotateAndTrim = true;
 				rotate = function (xVal) { return "rotate(" + props.rotate + " " + xVal + ", -5)" };
 			}
 		}
@@ -116,10 +125,11 @@ var HorizontalAxis = React.createClass({
 			var formatted = props.tickFormat(tickValue);
 			var xVal = ordinalAdjust(props.xScale, tickValue);
 			var yVal = 0;
-			var textAnchor = (props.rotate) ? 'start' : props.textAnchor;
-			if (props.rotate) {
+			var textAnchor = (doRotateAndTrim) ? 'start' : props.textAnchor;
+			if (doRotateAndTrim) {
 				xVal = xVal - 5;
-				yVal = -5
+				yVal = -5;
+				formatted = maxLength(formatted);
 			}
 
 			// offset a tick label that is over the edge
@@ -141,7 +151,7 @@ var HorizontalAxis = React.createClass({
 					x={xVal}
 					y={yVal}
 					dy={DY}
-					transform={rotate(xVal)}
+					transform={doRotateAndTrim ? rotate(xVal) : false}
 				>
 					{text}
 				</text>

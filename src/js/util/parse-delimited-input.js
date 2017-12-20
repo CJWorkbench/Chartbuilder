@@ -173,10 +173,11 @@ function parseKeyColumn(entry, type) {
 		return {type: "number", val: num};
 	}
 	else {
-		var date = new Date.create(entry);
+		// Let dates remain text
+		/*var date = new Date.create(entry);
 		if((!isNaN(date) && !type) || type == "date") {
 			return {type: "date", val: date};
-		}
+		}*/
 
 		return {type: "string", val: entry};
 	}
@@ -188,4 +189,3 @@ module.exports = {
 	_parseKeyColumn: parseKeyColumn,
 	_parseValue: parseValue
 };
-

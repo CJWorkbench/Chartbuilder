@@ -104,11 +104,7 @@ function _ordinalScale(scaleOptions, data, range, _padding) {
 		scale: scale,
 		tickValues: entries,
 		tickFormat: function(d) {
-			if (scaleOptions.maxLength && d.length > scaleOptions.maxLength) {
-				return d.substr(0, scaleOptions.maxLength) + ((scaleOptions.overflow) ? scaleOptions.overflow : "");
-			}
 			return d;
-
 		}
 	};
 }
