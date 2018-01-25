@@ -24,7 +24,7 @@ function parseXY(config, _chartProps, callback, parseOpts) {
 	// this can probably be avoided by applying new settings differently
 	var chartProps = JSON.parse(JSON.stringify(_chartProps));
 	var bySeries = dataBySeries(chartProps.input.raw, {
-		checkForDate: true,
+		checkForDate: false, // DO NOT DO ANYTHING CLEVER WITH DATES PLS
 		type: chartProps.input.type
 	});
 
