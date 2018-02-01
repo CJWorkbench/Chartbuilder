@@ -127,7 +127,7 @@ ChartMetadataStore.dispatchToken = Dispatcher.register(registeredCallback);
 
 function defaultTitle(data) {
 	if (data.length === 1 && _metadata.title === "") {
-		return data[0].name;
+		return ''; // Don't surprise the user like this
 	} else {
 		return _metadata.title;
 	}
