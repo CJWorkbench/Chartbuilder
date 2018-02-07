@@ -113,7 +113,8 @@ var defaultProps = {
 			typeSettings: {
 				rotate: "auto",
 				maxLength: false,
-				overflow: "..."
+				overflow: "...",
+				tickFont: false
 			}
 		},
 		data: [],

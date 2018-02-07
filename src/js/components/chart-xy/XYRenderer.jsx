@@ -200,9 +200,8 @@ var XYRenderer = React.createClass({
 		var hasTitle = (props.metadata.title.length > 0 && props.showMetadata);
 		var hasColumn = this._chartHasColumn(_chartProps.chartSettings);
 		var needsLabelOffset = this._needsLabelOffset(_chartProps._annotations.labels, _chartProps.data)
-
 		// set the tick font and figure out how wide ticks will be before rendering
-		var tickFont = styleConfig.fontSizes.medium + "px " + styleConfig.fontFamilies.axes;
+		var tickFont = scale.typeSettings.tickFont || styleConfig.fontSizes.medium + "px " + styleConfig.fontFamilies.axes;
 		var tickWidths = this._getTickWidths(_chartProps.scale, tickFont);
 		var tickTextHeight = help.computeTextWidth("M", tickFont);
 

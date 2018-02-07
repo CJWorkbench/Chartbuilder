@@ -109,7 +109,7 @@ var HorizontalAxis = React.createClass({
 			if (props.rotate === "auto") {
 				for (var i = 0; i < props.tickValues.length; i++) {
 					if ( props.xScale.bandwidth()
-						< help.computeTextWidth(props.tickValues[i]) ) {
+						< help.computeTextWidth(props.tickValues[i], props.tickFont) ) {
 						doRotateAndTrim = true;
 						rotate = function (xVal) { return "rotate(" + 35 + " " + xVal + ", -5)" };
 						break;

@@ -238,7 +238,13 @@ function parseXY(config, _chartProps, callback, parseOpts) {
 		}
 	}
 
-	scale.typeSettings = chartProps.scale.typeSettings || clone(config.defaultProps.chartProps.scale.typeSettings);
+	var typeSettingsDefaults = clone(config.defaultProps.chartProps.scale.typeSettings);
+
+	scale.typeSettings = typeSettingsDefaults;
+
+	if (chartProps.scale.typeSettings) {
+		Object.assign(scale.typeSettings, chartProps.scale.typeSettings);
+	};
 
 	var newChartProps = assign(chartProps, {
 		chartSettings: chartSettings,
