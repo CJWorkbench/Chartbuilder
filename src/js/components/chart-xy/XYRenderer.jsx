@@ -207,7 +207,7 @@ var XYRenderer = React.createClass({
 
 		// set the dimensions of inner and outer. much of this will be unnecessary
 		// if we draw stuff in HTML
-		var base_dimensions = xyDimensions(props.width, {
+		var base_dimensions = xyDimensions(props.width, props.height, {
 			displayConfig: displayConfig,
 			enableResponsive: props.enableResponsive,
 			metadata: props.metadata
@@ -233,7 +233,7 @@ var XYRenderer = React.createClass({
 		// dimensions of entire canvas, base + label height
 		var outerDimensions = {
 			width: base_dimensions.width,
-			height: base_dimensions.height + extraHeight
+			height: base_dimensions.height
 		};
 
 		// account for legend label offset

@@ -14,6 +14,7 @@ var clone = require("lodash/clone");
 var isDate = require("lodash/isDate");
 var isEqual = require("lodash/isEqual");
 var throttle = require("lodash/throttle");
+var debounce = require("lodash/debounce");
 var reduce = require("lodash/reduce");
 var keys = require("lodash/keys");
 var update = require("react-addons-update");
@@ -68,6 +69,7 @@ var RendererWrapper = React.createClass({
 	getInitialState: function() {
 		return {
 			domNodeWidth: null,
+			domNodeHeight: null,
 			extraHeight: 0,
 			emSize: null,
 			svgSizeClass: null,
@@ -117,10 +119,11 @@ var RendererWrapper = React.createClass({
 	},
 
 	// method for updating configs and breakpoints when width changes
-	_resizeUpdate: function(props, bp, domNodeWidth) {
+	_resizeUpdate: function(props, bp, domNodeWidth, domNodeHeight) {
 		var chartType = props.model.metadata.chartType;
 		return {
 			domNodeWidth: domNodeWidth,
+			domNodeHeight: domNodeHeight,
 			emSize: bp.em_size,
 			svgSizeClass: bp.class_name,
 			chartConfig: convertConfig(chartConfigs[chartType], null, bp.em_size, domNodeWidth),
@@ -130,10 +133,18 @@ var RendererWrapper = React.createClass({
 
 	// check for a new width and update everything if it has changed
 	_updateWidth: function() {
-		var domNodeWidth = ReactDOM.findDOMNode(this).offsetWidth;
+		let dimensionDomNode;
+		let parentRef = this.props.parentRef();
+		if (parentRef) {
+			dimensionDomNode = parentRef;
+		} else {
+			dimensionDomNode = ReactDOM.findDOMNode(this);
+		}
+		var domNodeWidth = dimensionDomNode.offsetWidth;
+		var domNodeHeight = dimensionDomNode.offsetHeight;
 		var bp = breakpoints.getBreakpointObj(this.props.enableResponsive, domNodeWidth);
-		if (domNodeWidth !== this.state.domNodeWidth) {
-			var resized = this._resizeUpdate(this.props, bp, domNodeWidth);
+		if (domNodeWidth !== this.state.domNodeWidth || domNodeHeight !== this.state.domNodeHeight) {
+			var resized = this._resizeUpdate(this.props, bp, domNodeWidth, domNodeHeight);
 			if (resized) {
 				this.setState(resized);
 			}
@@ -144,7 +155,7 @@ var RendererWrapper = React.createClass({
 	componentDidMount: function() {
 		if (this.props.enableResponsive) {
 			this._updateWidth(true);
-			this._updateWidth = throttle(this._updateWidth, 50);
+			this._updateWidth = debounce(this._updateWidth, 200);
 			window.addEventListener("resize", this._updateWidth);
 		}
 	},
@@ -179,11 +190,12 @@ var RendererWrapper = React.createClass({
 	render: function() {
 		var chartType = this.props.model.metadata.chartType;
 		var width = this.props.width || this.state.domNodeWidth;
+		var height = this.props.height || this.state.domNodeHeight;
 		var displayConfig = this.state.chartConfig.display;
 		var svgClassName = this.props.svgClassName || '';
 
 		if (!width) {
-			return <div style={{ width: "100%" }}></div>;
+			return <div style={{ width: "100%", height:"100%" }}></div>;
 		}
 
 		// Reduce padding and margin if metadata is not shown
@@ -236,6 +248,7 @@ var RendererWrapper = React.createClass({
 				<Renderer
 					svgSizeClass={this.state.svgSizeClass}
 					width={width}
+					height={height}
 					extraHeight={this.state.extraHeight}
 					chartProps={chartProps}
 					displayConfig={displayConfig}

@@ -2,24 +2,23 @@
   "_from": "git://github.com/CJWorkbench/Chartbuilder.git#library-style",
   "_id": "chartbuilder@3.0.5",
   "_inBundle": false,
-  "_integrity": "sha1-V++42jiWZjwHupgoFSjBXo7PT8I=",
+  "_integrity": "sha1-4hpTFWRRswnJAUQqlB6hkYeZ47M=",
   "_location": "/chartbuilder",
   "_phantomChildren": {},
   "_requested": {
     "type": "git",
-    "raw": "chartbuilder@git://github.com/CJWorkbench/Chartbuilder.git#library-style",
-    "name": "chartbuilder",
-    "escapedName": "chartbuilder",
+    "raw": "git://github.com/CJWorkbench/Chartbuilder.git#library-style",
     "rawSpec": "git://github.com/CJWorkbench/Chartbuilder.git#library-style",
     "saveSpec": "git://github.com/CJWorkbench/Chartbuilder.git#library-style",
     "fetchSpec": "git://github.com/CJWorkbench/Chartbuilder.git",
     "gitCommittish": "library-style"
   },
   "_requiredBy": [
+    "#USER",
     "/"
   ],
-  "_resolved": "git://github.com/CJWorkbench/Chartbuilder.git#dd661501c10eb7110cd04035775cb79f6173cd33",
-  "_spec": "chartbuilder@git://github.com/CJWorkbench/Chartbuilder.git#library-style",
+  "_resolved": "git://github.com/CJWorkbench/Chartbuilder.git#2600fcee83118da27a9bb562d9b9fe8aace92a5c",
+  "_spec": "git://github.com/CJWorkbench/Chartbuilder.git#library-style",
   "_where": "/Users/matthew/dev/columnchart/src",
   "author": {
     "name": "Quartz"

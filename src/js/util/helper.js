@@ -108,7 +108,7 @@ function compute_scale_domain(scaleObj, data, opts) {
  * @memberof helper
  * @return {number} Rounded number
  */
-function round_to_precision(num, precision, supress_thou_sep) {
+function round_to_precision(num, precision, supress_thou_sep, supress_00) {
 	//zero should always be "0"
 	if (num === 0) return "0";
 
@@ -129,7 +129,7 @@ function round_to_precision(num, precision, supress_thou_sep) {
 		s[0] = d3.format(",")(parseInt(s[0]));
 	}
 
-	if (precision === 0) {
+	if (precision === 0 || (supress_00 && parseInt(s[1]) === 0)) {
 		return s[0];
 	}
 

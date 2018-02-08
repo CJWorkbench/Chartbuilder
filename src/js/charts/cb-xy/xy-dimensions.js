@@ -8,7 +8,7 @@ var chartSizes = require("../../config/chart-sizes");
  * @instance
  * @memberof xy_config
  */
-function calculate_xy_dimensions(width, opts) {
+function calculate_xy_dimensions(width, height, opts) {
 	var height;
 	var aspectRatio = opts.displayConfig.aspectRatio;
 	var metadata = opts.metadata;
@@ -21,7 +21,7 @@ function calculate_xy_dimensions(width, opts) {
 
 	switch (metadata.size) {
 		case "auto":
-			height = width * aspectRatio.wide;
+			// Do nothing, just use the height and width passed in
 			break;
 
 		case 'medium':

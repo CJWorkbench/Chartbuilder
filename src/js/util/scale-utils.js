@@ -82,7 +82,7 @@ function _linearScale(scaleOptions, data, range) {
 		scale: d3.scale.linear().domain(scaleOptions.domain).range(range),
 		tickValues: scaleOptions.tickValues,
 		tickFormat: function(d) {
-			return help.roundToPrecision(d, scaleOptions.precision);
+			return help.roundToPrecision(d, scaleOptions.precision, false, true);
 		}
 	};
 }

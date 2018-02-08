@@ -111,13 +111,13 @@ var HorizontalAxis = React.createClass({
 					if ( props.xScale.bandwidth()
 						< help.computeTextWidth(props.tickValues[i], props.tickFont) ) {
 						doRotateAndTrim = true;
-						rotate = function (xVal) { return "rotate(" + 35 + " " + xVal + ", -5)" };
+						rotate = function (xVal) { return "rotate(" + 305 + " " + xVal + ", 0)" };
 						break;
 					}
 				}
 			} else {
 				doRotateAndTrim = true;
-				rotate = function (xVal) { return "rotate(" + props.rotate + " " + xVal + ", -5)" };
+				rotate = function (xVal) { return "rotate(" + props.rotate + " " + xVal + ", 0)" };
 			}
 		}
 		return map(props.tickValues, function(tickValue, i) {
@@ -125,9 +125,8 @@ var HorizontalAxis = React.createClass({
 			var formatted = props.tickFormat(tickValue);
 			var xVal = ordinalAdjust(props.xScale, tickValue);
 			var yVal = 0;
-			var textAnchor = (doRotateAndTrim) ? 'start' : props.textAnchor;
+			var textAnchor = (doRotateAndTrim) ? 'end' : props.textAnchor;
 			if (doRotateAndTrim) {
-				xVal = xVal - 5;
 				yVal = -5;
 				formatted = maxLength(formatted);
 			}
