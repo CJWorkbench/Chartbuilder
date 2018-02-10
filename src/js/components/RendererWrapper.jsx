@@ -123,7 +123,7 @@ var RendererWrapper = React.createClass({
 		var chartType = props.model.metadata.chartType;
 		return {
 			domNodeWidth: domNodeWidth,
-			domNodeHeight: domNodeHeight,
+			domNodeHeight: domNodeHeight-5,
 			emSize: bp.em_size,
 			svgSizeClass: bp.class_name,
 			chartConfig: convertConfig(chartConfigs[chartType], null, bp.em_size, domNodeWidth),

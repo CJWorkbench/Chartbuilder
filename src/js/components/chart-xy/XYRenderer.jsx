@@ -222,7 +222,8 @@ var XYRenderer = React.createClass({
 			),
 			height: (
 				base_dimensions.height - margin.top - margin.bottom -
-				displayConfig.padding.top - displayConfig.padding.bottom
+				displayConfig.padding.top - displayConfig.padding.bottom -
+				(props.metadata.title==="" ? 0 : displayConfig.afterTitle)
 			)
 		};
 

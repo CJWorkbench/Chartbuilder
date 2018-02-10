@@ -19,7 +19,7 @@ var SvgWrapper = React.createClass({
 				text={props.metadata.title}
 				key="title"
 				translate={[
-					props.displayConfig.margin.left,
+					(props.outerDimensions.width/2),
 					props.displayConfig.margin.top
 				]}
 				align="top"
@@ -43,7 +43,7 @@ var SvgWrapper = React.createClass({
 		// Add to the chart margin if title is present
 		var outerDimensions = {
 			width: props.outerDimensions.width,
-			height: props.outerDimensions.height + yOffset
+			height: props.outerDimensions.height
 		};
 
 		var translate = {

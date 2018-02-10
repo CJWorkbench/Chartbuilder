@@ -17,9 +17,9 @@
     "#USER",
     "/"
   ],
-  "_resolved": "git://github.com/CJWorkbench/Chartbuilder.git#2600fcee83118da27a9bb562d9b9fe8aace92a5c",
+  "_resolved": "git://github.com/CJWorkbench/Chartbuilder.git#d0e593fafa05b94c2c925ce8b7d3559e60ea01f2",
   "_spec": "git://github.com/CJWorkbench/Chartbuilder.git#library-style",
-  "_where": "/Users/matthew/dev/columnchart/src",
+  "_where": "/Users/pierreforcioli-conti/columnchart/src",
   "author": {
     "name": "Quartz"
   },
